@@ -620,7 +620,7 @@ function drawLetterFrame() {
   ctx.strokeStyle=theme.stroke+'28';
   ctx.strokeText(currentChar,cx,cy);
   // Sharp outline
-  ctx.lineWidth=Math.max(fontSize*0.028,3.5);
+  ctx.lineWidth=Math.max(fontSize*0.018,3.5);
   ctx.strokeStyle=theme.stroke+'EE';
   ctx.strokeText(currentChar,cx,cy);
   ctx.restore();
@@ -672,7 +672,7 @@ function checkTracing() {
     speakText('Bitte erst nachspuren!'); return;
   }
   const fontSize=computeFontSize();
-  if(totalDrawnPixels < fontSize*0.15){
+  if(totalDrawnPixels < fontSize*0.25){
     setFeedback('✏️ Mehr nachspuren bitte!','#C03060');
     speakText('Mehr nachspuren bitte!'); return;
   }
@@ -686,12 +686,12 @@ function checkTracing() {
     drawn++;
     if(maskData[i]>128)inside++;else outside++;
   }
-  if(drawn < CW*CH*0.008){
+  if(drawn < CW*CH*0.012){
     setFeedback('✏️ Mehr nachspuren bitte!','#C03060');
     speakText('Mehr nachspuren bitte!'); return;
   }
   const accuracy=inside/drawn;
-  if(accuracy>=0.70&&(outside/drawn)<0.30) onSuccess();
+  if(accuracy>=0.80&&(outside/drawn)<0.20) onSuccess();
   else{
     setFeedback(`Nochmal versuchen! (${Math.round(accuracy*100)}% genau)`,'#C03060');
     speakText('Nochmal versuchen!');
