@@ -1,7 +1,7 @@
 // Service Worker – Buchstaben nachspuren
 // Version 2 – GitHub Pages + iPad kompatibel
 
-const CACHE_VERSION = 'nachspuren-v3';
+const CACHE_VERSION = 'nachspuren-v4';
 
 // Kern-Dateien – müssen immer verfügbar sein
 const CORE_FILES = [
