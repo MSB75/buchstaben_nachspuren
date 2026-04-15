@@ -1,9 +1,5 @@
-// Service Worker – Buchstaben nachspuren
-// Version 2 – GitHub Pages + iPad kompatibel
+const CACHE_VERSION = 'nachspuren-v3';
 
-const CACHE_VERSION = 'nachspuren-v4';
-
-// Kern-Dateien – müssen immer verfügbar sein
 const CORE_FILES = [
   './',
   './index.html',
@@ -12,104 +8,52 @@ const CORE_FILES = [
   './icon-512.png',
 ];
 
-// Anlaut-Icons – werden separat gecacht (Fehler werden ignoriert)
 const ICON_FILES = [
-  'icons/M.png',
-  'icons/A.png',
-  'icons/I.png',
-  'icons/O.png',
-  'icons/L.png',
-  'icons/U.png',
-  'icons/F.png',
-  'icons/E.png',
-  'icons/N.png',
-  'icons/S.png',
-  'icons/P.png',
-  'icons/Ei.png',
-  'icons/T.png',
-  'icons/Au.png',
-  'icons/H.png',
-  'icons/D.png',
-  'icons/Sch.png',
-  'icons/K.png',
-  'icons/R.png',
-  'icons/B.png',
-  'icons/W.png',
-  'icons/G.png',
-  'icons/Z.png',
-  'icons/ie.png',
-  'icons/ss.png',
-  'icons/ch.png',
-  'icons/Eu.png',
-  'icons/J.png',
-  'icons/V.png',
-  'icons/Aeu.png',
-  'icons/ng.png',
-  'icons/Qu.png',
-  'icons/X.png',
-  'icons/C.png',
-  'icons/Y.png',
-  'icons/0.png',
-  'icons/1.png',
-  'icons/2.png',
-  'icons/3.png',
-  'icons/4.png',
-  'icons/5.png',
-  'icons/6.png',
-  'icons/7.png',
-  'icons/8.png',
-  'icons/9.png',
+  'icons/m.png','icons/a.png','icons/i.png','icons/o.png','icons/l.png',
+  'icons/u.png','icons/f.png','icons/e.png','icons/n.png',
+  'icons/s.png','icons/p.png','icons/ei.png','icons/t.png','icons/au.png',
+  'icons/h.png','icons/d.png','icons/sch.png','icons/k.png','icons/r.png',
+  'icons/b.png','icons/w.png','icons/g.png','icons/z.png',
+  'icons/ie.png','icons/ss.png','icons/ch.png','icons/eu.png',
+  'icons/j.png','icons/v.png','icons/aeu.png','icons/ng.png',
+  'icons/qu.png','icons/x.png','icons/c.png','icons/y.png',
+  'icons/0.png','icons/1.png','icons/2.png','icons/3.png','icons/4.png',
+  'icons/5.png','icons/6.png','icons/7.png','icons/8.png','icons/9.png',
 ];
 
-// ── Installation ────────────────────────────────────────────────
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_VERSION).then(async cache => {
-      // Kern-Dateien: Pflicht
       await cache.addAll(CORE_FILES);
-      // Icons: Best-Effort (fehlende blockieren nicht den Start)
       await Promise.allSettled(
         ICON_FILES.map(url =>
-          fetch(url).then(res => {
-            if (res.ok) return cache.put(url, res);
-          }).catch(() => {})
+          fetch(url).then(res => { if (res.ok) return cache.put(url, res); }).catch(()=>{})
         )
       );
     }).then(() => self.skipWaiting())
   );
 });
 
-// ── Aktivierung: alten Cache entfernen ──────────────────────────
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys()
-      .then(keys => Promise.all(
-        keys.filter(k => k !== CACHE_VERSION).map(k => caches.delete(k))
-      ))
+      .then(keys => Promise.all(keys.filter(k => k !== CACHE_VERSION).map(k => caches.delete(k))))
       .then(() => self.clients.claim())
   );
 });
 
-// ── Fetch: Cache-First, Netzwerk-Fallback ───────────────────────
 self.addEventListener('fetch', event => {
-  // Nur GET, nur gleiche Origin
   if (event.request.method !== 'GET') return;
-
   event.respondWith(
     caches.match(event.request).then(cached => {
       if (cached) return cached;
-
       return fetch(event.request).then(response => {
         if (!response || response.status !== 200) return response;
-        // Dynamisch cachen
         const clone = response.clone();
         caches.open(CACHE_VERSION).then(cache => cache.put(event.request, clone));
         return response;
       }).catch(() => {
-        // Offline: Hauptseite als Fallback
-        if (event.request.destination === 'document') {
-          return caches.match('./index.html');
-        }
+        if (event.request.destination === 'document') return caches.match('./index.html');
       });
     })
   );
