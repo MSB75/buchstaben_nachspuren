@@ -72,6 +72,93 @@
   }
   .page.active { display: flex; flex-direction: column; }
 
+  /* ══════════════════════════════════════════
+     DATENSCHUTZ-MODAL
+  ══════════════════════════════════════════ */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 2000;
+    background: rgba(0,0,0,0.55);
+    display: flex; align-items: center; justify-content: center;
+    padding: 16px;
+  }
+  .modal-overlay.hidden { display: none; }
+  .modal-box {
+    background: #FFFDF8;
+    border-radius: 24px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+    max-width: 560px; width: 100%;
+    max-height: 90vh;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+  .modal-header {
+    background: linear-gradient(135deg,#FFD6E0,#FFDAC1);
+    padding: 20px 24px 14px;
+    flex-shrink: 0;
+  }
+  .modal-header h1 {
+    font-family: 'Grundschrift', sans-serif;
+    font-size: 1.4rem; font-weight: 800;
+    color: #1A1A1A; margin-bottom: 4px;
+  }
+  .modal-header p {
+    font-size: 0.85rem; color: #555; font-weight: 600;
+  }
+  .modal-body {
+    padding: 20px 24px;
+    overflow-y: auto;
+    flex: 1;
+    font-size: 0.95rem; line-height: 1.65;
+    color: #222;
+  }
+  .modal-body h2 {
+    font-family: 'Grundschrift', sans-serif;
+    font-size: 1.05rem; font-weight: 800;
+    margin: 18px 0 6px;
+    color: #1A1A1A;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .modal-body h2:first-child { margin-top: 0; }
+  .modal-body p { margin-bottom: 10px; }
+  .modal-body a { color: #005FCC; text-decoration: underline; }
+  .modal-body .highlight {
+    background: #F0FFF5;
+    border-left: 4px solid #2E9E65;
+    border-radius: 0 10px 10px 0;
+    padding: 10px 14px;
+    margin: 10px 0;
+    font-size: 0.92rem;
+  }
+  .modal-body .highlight.orange {
+    background: #FFFBEE;
+    border-color: #E8820A;
+  }
+  .modal-body .cc-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #EEF2FF; border-radius: 8px;
+    padding: 6px 12px; font-size: 0.88rem; font-weight: 700;
+    color: #2050B0; margin: 6px 0;
+  }
+  .modal-footer {
+    padding: 16px 24px;
+    flex-shrink: 0;
+    border-top: 2px solid #F0E8E0;
+    display: flex; justify-content: center;
+  }
+  .btn-accept {
+    padding: 14px 40px;
+    background: linear-gradient(135deg,#B5EAD7,#88D8B0);
+    border: none; border-radius: 16px;
+    font-family: 'Grundschrift', sans-serif;
+    font-size: 1.1rem; font-weight: 800;
+    color: #0d5c30; cursor: pointer;
+    box-shadow: 0 3px 12px rgba(46,158,101,0.3);
+    transition: transform 0.12s;
+    min-height: 52px; min-width: 200px;
+  }
+  .btn-accept:hover { transform: scale(1.04); }
+  .btn-accept:active { transform: scale(0.97); }
+
   /* ── START ── */
   #page-start .start-grid {
     display: grid; grid-template-columns: 1fr 1fr;
@@ -243,57 +330,41 @@
   .result-title {
     font-family: 'Grundschrift', sans-serif;
     font-size: 1.6rem; font-weight: 800;
-    text-align: center; flex-shrink: 0;
-    color: #1A7A40;
+    text-align: center; flex-shrink: 0; color: #1A7A40;
   }
   .result-subtitle {
     font-size: 1rem; font-weight: 700;
     text-align: center; color: #555; flex-shrink: 0;
     margin-top: -8px;
   }
-  /* Galerie: 2×4 Grid der nachgespurten Canvas-Schnappschüsse */
   .result-gallery {
     flex: 1; display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 10px;
-    min-height: 0;
+    grid-template-columns: repeat(4,1fr);
+    grid-template-rows: repeat(2,1fr);
+    gap: 10px; min-height: 0;
   }
   .result-tile {
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    border: 3px solid #E8E8E8;
+    border-radius: 16px; overflow: hidden;
+    box-shadow: var(--shadow); border: 3px solid #E8E8E8;
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
     background: #FFFDF8;
   }
-  .result-tile canvas {
-    width: 100%; height: 100%;
-    display: block;
+  .result-tile img {
+    width: 100%; height: calc(100% - 22px);
+    object-fit: contain; display: block;
   }
-  .result-tile .tile-label {
+  .tile-label {
     font-family: 'Grundschrift', sans-serif;
     font-size: 0.75rem; font-weight: 700;
-    color: #777; padding: 3px 0 4px;
-    flex-shrink: 0;
+    color: #777; padding: 3px 0 4px; flex-shrink: 0;
   }
   .result-bottom {
     display: flex; gap: 12px;
     justify-content: center; flex-shrink: 0;
   }
-  .btn-again  { background: #B5EAD7; color: #0d5c30; }
+  .btn-again   { background: #B5EAD7; color: #0d5c30; }
   .btn-tostart { background: #FFDAC1; color: #7a3010; }
-
-  /* ── FOOTER ── */
-  .copyright-footer {
-    position: fixed; bottom: 0; left: 0; right: 0;
-    background: rgba(255,255,255,0.93);
-    border-top: 1px solid #EEE;
-    text-align: center; font-size: 0.68rem; color: #888;
-    padding: 3px 8px; z-index: 500;
-  }
-  .copyright-footer a { color: #666; text-decoration: underline; }
 
   /* ── CONFETTI ── */
   #confettiCanvas {
@@ -307,10 +378,6 @@
   }
   @media (min-width: 900px) {
     .letter-grid { grid-template-columns: repeat(5,1fr); }
-    .result-gallery { grid-template-columns: repeat(4,1fr); }
-  }
-  @media (max-width: 480px) {
-    .result-gallery { grid-template-columns: repeat(4,1fr); }
   }
   @media (forced-colors: active) {
     .letter-btn,.case-btn,.start-btn,.action-btn,.nav-btn { border: 2px solid ButtonText; }
@@ -319,14 +386,110 @@
 </head>
 <body>
 
+<!-- ══════════════════════════════════════════
+     DATENSCHUTZ-MODAL (erscheint beim ersten Start)
+════════════════════════════════════════════ -->
+<div class="modal-overlay" id="privacyModal" role="dialog"
+     aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h1 id="modalTitle">🔒 Datenschutz &amp; Impressum</h1>
+      <p>Bitte einmal lesen und bestätigen</p>
+    </div>
+    <div class="modal-body">
+
+      <h2>🗄️ Datenspeicherung</h2>
+      <div class="highlight">
+        Diese App speichert <strong>keine persönlichen Daten</strong>.
+        Es werden keine Namen, Standorte, Nutzungsverhalten oder
+        sonstige Informationen gespeichert oder übertragen.
+      </div>
+      <p>
+        Die App läuft vollständig im Browser des Geräts.
+        Alle Inhalte (Schriften, Audio, Programmcode) sind direkt
+        in der App-Datei eingebettet. Eine Internetverbindung ist
+        nach dem ersten Laden <strong>nicht erforderlich</strong>.
+      </p>
+
+      <h2>☁️ Hosting &amp; Server</h2>
+      <p>
+        Die App wird über <strong>GitHub Pages</strong>
+        (GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA)
+        bereitgestellt. Beim ersten Abruf der App-Seite speichert GitHub
+        automatisch Server-Logs mit IP-Adresse, Zeitstempel und Browser-Typ.
+        Diese Logs werden von GitHub verwaltet und sind nicht durch den
+        Betreiber dieser App einsehbar oder beeinflussbar.
+        Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO
+        (berechtigtes Interesse am sicheren Betrieb).
+      </p>
+      <div class="highlight orange">
+        <strong>Offline-Nutzung:</strong> Nach dem ersten Aufruf speichert
+        der Browser die App lokal (Service Worker / Cache).
+        Danach werden <strong>keinerlei Serverzugriffe</strong> mehr
+        durchgeführt — auch keine Logs.
+      </div>
+      <p>
+        Datenschutzerklärung von GitHub:
+        <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement"
+           target="_blank" rel="noopener noreferrer">
+          docs.github.com/privacy
+        </a>
+      </p>
+
+      <h2>🖼️ Bildmaterial &amp; Urheberrecht</h2>
+      <p>
+        Die in dieser App verwendeten Piktogramme stammen von
+        <strong>ARASAAC</strong> (Aragonese Portal of Augmentative
+        and Alternative Communication):
+      </p>
+      <div class="highlight">
+        <strong>Urheber:</strong> Sergio Palao<br>
+        <strong>Eigentümer:</strong> Gobierno de Aragón (Regierung von Aragonien), Spanien<br>
+        <strong>Quelle:</strong>
+        <a href="https://arasaac.org" target="_blank" rel="noopener noreferrer">arasaac.org</a><br>
+        <strong>Lizenz:</strong>
+        <span class="cc-badge">CC BY-NC-SA 4.0</span><br>
+        Creative Commons Namensnennung –
+        Nicht-kommerziell – Weitergabe unter gleichen Bedingungen 4.0 International<br>
+        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.de"
+           target="_blank" rel="noopener noreferrer">
+          creativecommons.org/licenses/by-nc-sa/4.0
+        </a>
+      </div>
+      <p>
+        Die Nutzung dieser App und ihrer Inhalte ist
+        <strong>ausschließlich für nicht-kommerzielle Zwecke</strong>
+        (Bildung, Förderung) gestattet.
+      </p>
+
+      <h2>🔤 Schriftart</h2>
+      <p>
+        Es wird die <strong>Grundschrift</strong> des
+        Grundschulverbands e.&nbsp;V. verwendet.
+        Die Schrift ist in der App-Datei eingebettet und wird
+        nicht über externe Server geladen.
+      </p>
+
+      <h2>📞 Kontakt</h2>
+      <p>
+        Bei Fragen zum Datenschutz wenden Sie sich bitte an die
+        Lehrkraft oder Einrichtung, die diese App bereitstellt.
+      </p>
+
+    </div>
+    <div class="modal-footer">
+      <button class="btn-accept" onclick="acceptPrivacy()">
+        ✓ Verstanden – App starten
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ NAV ══ -->
 <nav role="navigation" aria-label="Navigation">
   <button class="nav-btn nav-home" onclick="showPage('start')" aria-label="Startseite">🏠</button>
-  <span id="fibelNav" style="display:none">
-    <button class="nav-btn" onclick="showPage('fibel1')">Fibel 1</button>
-    <button class="nav-btn" onclick="showPage('fibel2')">Fibel 2</button>
-    <button class="nav-btn" onclick="showPage('fibel3')">Fibel 3</button>
-    <button class="nav-btn" onclick="showPage('zahlen')">Zahlen</button>
-  </span>
+
+  <button class="nav-btn nav-info" onclick="openPrivacy()" aria-label="Informationen und Datenschutz" style="margin-left:auto;">ℹ️ Infos</button>
 </nav>
 
 <canvas id="confettiCanvas" aria-hidden="true"></canvas>
@@ -417,12 +580,29 @@
   </div>
 </div>
 
-<footer class="copyright-footer" role="contentinfo">
-  Icons von <a href="https://picto.kits.app" target="_blank" rel="noopener noreferrer">Picto (picto.kits.app)</a>
-  &nbsp;·&nbsp; Grundschrift &copy; Grundschulverband e.V.
-</footer>
-
 <script>
+// ══════════════════════════════════════════════
+// DATENSCHUTZ-MODAL
+// ══════════════════════════════════════════════
+function openPrivacy() {
+  document.getElementById('privacyModal').classList.remove('hidden');
+}
+function acceptPrivacy() {
+  document.getElementById('privacyModal').classList.add('hidden');
+  try { localStorage.setItem('privacy_accepted','1'); } catch(e) {}
+}
+
+// Nur beim allerersten Besuch zeigen (localStorage-Flag)
+(function() {
+  try {
+    if (localStorage.getItem('privacy_accepted') === '1') {
+      document.getElementById('privacyModal').classList.add('hidden');
+    }
+  } catch(e) {
+    // localStorage nicht verfügbar → Modal immer zeigen
+  }
+})();
+
 // ══════════════════════════════════════════════
 // AUDIO
 // ══════════════════════════════════════════════
@@ -491,7 +671,6 @@ const ZAHLEN = [
 ];
 
 const GOAL = 8;
-
 const BTN_COLORS = [
   '#FFD6E0','#B5EAD7','#C7CEEA','#FFDAC1','#E2F0CB','#F2C4DE',
   '#D4E9FF','#FFE8B2','#D5F5E3','#F9D5FF','#D5EEF9','#F5E6C8'
@@ -506,79 +685,67 @@ const THEMES = [
 // ══════════════════════════════════════════════
 // STATE
 // ══════════════════════════════════════════════
-let currentChar = '', currentWord = '', currentFibel = 'fibel1';
-let currentIconPath = null;
-let successCount = 0, colorIdx = 0;
-let isDrawing = false, lastX = 0, lastY = 0, hasDrawn = false;
-let ctx = null, CW = 0, CH = 0;
-let maskCanvas = null, maskCtx = null;
-let totalDrawnPixels = 0;
-
-// Snapshots der 8 Versuche speichern
-let snapshots = []; // Array von {dataUrl, char, theme}
-
-// Für Nochmal-Funktion
-let lastTraceArgs = null;
+let currentChar='', currentWord='', currentFibel='fibel1';
+let currentIconPath=null, lastTraceArgs=null;
+let successCount=0, colorIdx=0;
+let isDrawing=false, lastX=0, lastY=0, hasDrawn=false;
+let ctx=null, CW=0, CH=0;
+let maskCanvas=null, maskCtx=null;
+let totalDrawnPixels=0, snapshots=[];
 
 // ══════════════════════════════════════════════
-// BUILD GRIDS
+// GRIDS
 // ══════════════════════════════════════════════
 function buildGrid(containerId, items, fibel, colorOff) {
   const grid = document.getElementById(containerId);
   items.forEach((item, i) => {
     const btn = document.createElement('button');
     btn.className = 'letter-btn';
-    btn.style.background = BTN_COLORS[(i + colorOff) % BTN_COLORS.length];
-    btn.setAttribute('role', 'listitem');
-    const label = item.key;
-    const word  = item.word || '';
-    const icon  = item.icon || null;
+    btn.style.background = BTN_COLORS[(i+colorOff) % BTN_COLORS.length];
+    btn.setAttribute('role','listitem');
+    const label = item.key, word = item.word||'', icon = item.icon||null;
     if (icon) {
       const img = document.createElement('img');
-      img.src = icon; img.alt = word; img.className = 'btn-icon';
+      img.src=icon; img.alt=word; img.className='btn-icon';
       img.onerror = function() {
-        this.style.display = 'none';
-        const ph = document.createElement('span');
-        ph.className = 'btn-icon-placeholder';
-        ph.textContent = label[0];
-        btn.insertBefore(ph, btn.firstChild);
+        this.style.display='none';
+        const ph=document.createElement('span');
+        ph.className='btn-icon-placeholder'; ph.textContent=label[0];
+        btn.insertBefore(ph,btn.firstChild);
       };
       btn.appendChild(img);
     } else {
-      const ph = document.createElement('span');
-      ph.className = 'btn-icon-placeholder';
-      ph.textContent = '🔢';
+      const ph=document.createElement('span');
+      ph.className='btn-icon-placeholder'; ph.textContent='🔢';
       btn.appendChild(ph);
     }
-    const span = document.createElement('span');
-    span.className = 'btn-label'; span.textContent = label;
+    const span=document.createElement('span');
+    span.className='btn-label'; span.textContent=label;
     btn.appendChild(span);
     btn.setAttribute('aria-label', word ? `${label} wie ${word}` : `Zahl ${label}`);
     btn.onclick = () => {
-      if (item.noCase) startTrace(item.single || item.key, item.word || '', fibel, item.icon);
+      if (item.noCase) startTrace(item.single||item.key, item.word||'', fibel, item.icon);
       else showCaseSelection(item, fibel);
     };
     grid.appendChild(btn);
   });
 }
-buildGrid('grid-fibel1', FIBEL1, 'fibel1', 0);
-buildGrid('grid-fibel2', FIBEL2, 'fibel2', 3);
-buildGrid('grid-fibel3', FIBEL3, 'fibel3', 6);
-buildGrid('grid-zahlen', ZAHLEN, 'zahlen', 1);
+buildGrid('grid-fibel1',FIBEL1,'fibel1',0);
+buildGrid('grid-fibel2',FIBEL2,'fibel2',3);
+buildGrid('grid-fibel3',FIBEL3,'fibel3',6);
+buildGrid('grid-zahlen',ZAHLEN,'zahlen',1);
 
 // ══════════════════════════════════════════════
 // NAVIGATION
 // ══════════════════════════════════════════════
 function showPage(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
-  // Fibel-Nav nur auf Startseite
-  document.getElementById('fibelNav').style.display = (id === 'start') ? 'contents' : 'none';
-  // Aktiv-Markierung
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  const labels = {start:'🏠',fibel1:'Fibel 1',fibel2:'Fibel 2',fibel3:'Fibel 3',zahlen:'Zahlen'};
-  document.querySelectorAll('.nav-btn').forEach(b => {
-    if (b.textContent.trim() === (labels[id] || '')) b.classList.add('active');
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  const labels={start:'🏠',fibel1:'Fibel 1',fibel2:'Fibel 2',fibel3:'Fibel 3',zahlen:'Zahlen'};
+  document.querySelectorAll('.nav-btn').forEach(b=>{
+    if (b.textContent.trim()===(labels[id]||'')) b.classList.add('active');
   });
 }
 
@@ -586,28 +753,28 @@ function showPage(id) {
 // CASE SELECTION
 // ══════════════════════════════════════════════
 function showCaseSelection(item, fibel) {
-  currentFibel = fibel;
-  document.getElementById('caseTitle').textContent = `${item.key} – Groß oder klein?`;
-  const grid = document.getElementById('caseGrid');
-  grid.innerHTML = '';
+  currentFibel=fibel;
+  document.getElementById('caseTitle').textContent=`${item.key} – Groß oder klein?`;
+  const grid=document.getElementById('caseGrid');
+  grid.innerHTML='';
   [
-    {label:'Großbuchstabe', char:item.upper, bg:'#FFD6E0'},
-    {label:'Kleinbuchstabe', char:item.lower, bg:'#B5EAD7'},
-  ].forEach(c => {
-    const btn = document.createElement('button');
-    btn.className = 'case-btn'; btn.style.background = c.bg;
-    btn.setAttribute('aria-label', `${c.label} ${c.char}`);
+    {label:'Großbuchstabe',char:item.upper,bg:'#FFD6E0'},
+    {label:'Kleinbuchstabe',char:item.lower,bg:'#B5EAD7'},
+  ].forEach(c=>{
+    const btn=document.createElement('button');
+    btn.className='case-btn'; btn.style.background=c.bg;
+    btn.setAttribute('aria-label',`${c.label} ${c.char}`);
     if (item.icon) {
-      const img = document.createElement('img');
-      img.src = item.icon; img.alt = item.word || item.key;
-      img.style.cssText = 'width:56px;height:56px;object-fit:contain;border-radius:10px;';
-      img.onerror = () => img.remove();
+      const img=document.createElement('img');
+      img.src=item.icon; img.alt=item.word||item.key;
+      img.style.cssText='width:56px;height:56px;object-fit:contain;border-radius:10px;';
+      img.onerror=()=>img.remove();
       btn.appendChild(img);
     }
-    const cs = document.createElement('span'); cs.textContent = c.char;
-    const ls = document.createElement('span'); ls.className = 'case-label'; ls.textContent = c.label;
+    const cs=document.createElement('span'); cs.textContent=c.char;
+    const ls=document.createElement('span'); ls.className='case-label'; ls.textContent=c.label;
     btn.appendChild(cs); btn.appendChild(ls);
-    btn.onclick = () => startTrace(c.char, item.word || c.char, fibel, item.icon);
+    btn.onclick=()=>startTrace(c.char,item.word||c.char,fibel,item.icon);
     grid.appendChild(btn);
   });
   showPage('case');
@@ -616,31 +783,23 @@ function showCaseSelection(item, fibel) {
 // ══════════════════════════════════════════════
 // TRACE SETUP
 // ══════════════════════════════════════════════
-function startTrace(char, word, fibel, iconPath) {
-  currentChar    = char;
-  currentWord    = word || char;
-  currentFibel   = fibel;
-  currentIconPath = iconPath || null;
-  successCount   = 0;
-  colorIdx       = 0;
-  hasDrawn       = false;
-  totalDrawnPixels = 0;
-  snapshots      = [];
-  lastTraceArgs  = [char, word, fibel, iconPath];
-
-  // Anlautbild
-  const box = document.getElementById('anlautBox');
+function startTrace(char,word,fibel,iconPath) {
+  currentChar=char; currentWord=word||char;
+  currentFibel=fibel; currentIconPath=iconPath||null;
+  successCount=0; colorIdx=0;
+  hasDrawn=false; totalDrawnPixels=0; snapshots=[];
+  lastTraceArgs=[char,word,fibel,iconPath];
+  const box=document.getElementById('anlautBox');
   if (iconPath) {
-    box.innerHTML = `<img class="anlaut-img" src="${iconPath}" alt="${word}"
+    box.innerHTML=`<img class="anlaut-img" src="${iconPath}" alt="${word}"
       onerror="this.parentElement.innerHTML='<div class=anlaut-placeholder>📖</div><div class=anlaut-word>${word}</div>'">
       <div class="anlaut-word">${word}</div>`;
   } else {
-    box.innerHTML = `<div class="anlaut-placeholder">🔢</div><div class="anlaut-word">${word}</div>`;
+    box.innerHTML=`<div class="anlaut-placeholder">🔢</div><div class="anlaut-word">${word}</div>`;
   }
-
   updateProgressDots();
   showPage('trace');
-  requestAnimationFrame(() => initCanvas());
+  requestAnimationFrame(()=>initCanvas());
 }
 
 function restartSame() {
@@ -648,14 +807,13 @@ function restartSame() {
 }
 
 function updateProgressDots() {
-  const dots = document.getElementById('progressDots');
-  dots.innerHTML = '';
-  document.getElementById('progressLabel').textContent = `${successCount} von ${GOAL}`;
-  for (let i = 0; i < GOAL; i++) {
-    const d = document.createElement('div');
-    d.className = 'dot' + (i < successCount ? ' done' : '');
-    d.id = `dot${i}`;
-    dots.appendChild(d);
+  const dots=document.getElementById('progressDots');
+  dots.innerHTML='';
+  document.getElementById('progressLabel').textContent=`${successCount} von ${GOAL}`;
+  for(let i=0;i<GOAL;i++) {
+    const d=document.createElement('div');
+    d.className='dot'+(i<successCount?' done':'');
+    d.id=`dot${i}`; dots.appendChild(d);
   }
 }
 
@@ -663,200 +821,152 @@ function updateProgressDots() {
 // CANVAS
 // ══════════════════════════════════════════════
 function initCanvas() {
-  const canvas = document.getElementById('traceCanvas');
-  const wrap   = document.getElementById('canvasWrap');
-  CW = wrap.offsetWidth;
-  CH = wrap.offsetHeight;
-  canvas.width  = CW;
-  canvas.height = CH;
-  ctx = canvas.getContext('2d');
-  maskCanvas = document.createElement('canvas');
-  maskCanvas.width = CW; maskCanvas.height = CH;
-  maskCtx = maskCanvas.getContext('2d');
+  const canvas=document.getElementById('traceCanvas');
+  const wrap=document.getElementById('canvasWrap');
+  CW=wrap.offsetWidth; CH=wrap.offsetHeight;
+  canvas.width=CW; canvas.height=CH;
+  ctx=canvas.getContext('2d');
+  maskCanvas=document.createElement('canvas');
+  maskCanvas.width=CW; maskCanvas.height=CH;
+  maskCtx=maskCanvas.getContext('2d');
   drawLetterFrame();
 }
 
 function computeFontSize() {
-  const len  = currentChar.length;
-  const base = Math.min(CW, CH) * 0.85;
-  if (len === 1) return base;
-  const isLower = currentChar === currentChar.toLowerCase();
-  if (len === 2) return isLower ? base * 0.75 : base * 0.62;
-  return isLower ? base * 0.54 : base * 0.42;
+  const len=currentChar.length;
+  const base=Math.min(CW,CH)*0.85;
+  if(len===1) return base;
+  const isLower=currentChar===currentChar.toLowerCase();
+  if(len===2) return isLower?base*0.75:base*0.62;
+  return isLower?base*0.54:base*0.42;
 }
 
 function drawLetterFrame() {
-  const theme = THEMES[colorIdx % THEMES.length];
-  ctx.fillStyle = theme.bg;
-  ctx.fillRect(0, 0, CW, CH);
-  const fontSize = computeFontSize();
-  const cx = CW / 2, cy = CH / 2;
-  const strokeW = Math.max(fontSize * 0.11, 12);
-  buildMask(fontSize, cx, cy, strokeW);
+  const theme=THEMES[colorIdx%THEMES.length];
+  ctx.fillStyle=theme.bg; ctx.fillRect(0,0,CW,CH);
+  const fontSize=computeFontSize();
+  const cx=CW/2, cy=CH/2;
+  const strokeW=Math.max(fontSize*0.11,12);
+  buildMask(fontSize,cx,cy,strokeW);
   ctx.save();
-  ctx.font = `${fontSize}px "GrundschriftKontur", sans-serif`;
-  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  ctx.setLineDash([]); ctx.lineJoin = 'round'; ctx.lineCap = 'round';
-  ctx.lineWidth   = strokeW * 1.8;
-  ctx.strokeStyle = theme.stroke + '28';
-  ctx.strokeText(currentChar, cx, cy);
-  ctx.lineWidth   = Math.max(fontSize * 0.028, 3.5);
-  ctx.strokeStyle = theme.stroke + 'EE';
-  ctx.strokeText(currentChar, cx, cy);
+  ctx.font=`${fontSize}px "GrundschriftKontur",sans-serif`;
+  ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.setLineDash([]); ctx.lineJoin='round'; ctx.lineCap='round';
+  ctx.lineWidth=strokeW*1.8; ctx.strokeStyle=theme.stroke+'28';
+  ctx.strokeText(currentChar,cx,cy);
+  ctx.lineWidth=Math.max(fontSize*0.028,3.5); ctx.strokeStyle=theme.stroke+'EE';
+  ctx.strokeText(currentChar,cx,cy);
   ctx.restore();
 }
 
-function buildMask(fontSize, cx, cy, strokeW) {
-  maskCtx.fillStyle = '#000';
-  maskCtx.fillRect(0, 0, CW, CH);
-  maskCtx.font = `${fontSize}px "GrundschriftKontur", sans-serif`;
-  maskCtx.textAlign = 'center'; maskCtx.textBaseline = 'middle';
-  maskCtx.fillStyle = '#FFF';
-  maskCtx.fillText(currentChar, cx, cy);
-  maskCtx.lineWidth   = strokeW * 1.4;
-  maskCtx.strokeStyle = '#FFF';
-  maskCtx.lineJoin = 'round'; maskCtx.lineCap = 'round';
-  maskCtx.setLineDash([]);
-  maskCtx.strokeText(currentChar, cx, cy);
+function buildMask(fontSize,cx,cy,strokeW) {
+  maskCtx.fillStyle='#000'; maskCtx.fillRect(0,0,CW,CH);
+  maskCtx.font=`${fontSize}px "GrundschriftKontur",sans-serif`;
+  maskCtx.textAlign='center'; maskCtx.textBaseline='middle';
+  maskCtx.fillStyle='#FFF'; maskCtx.fillText(currentChar,cx,cy);
+  maskCtx.lineWidth=strokeW*1.4; maskCtx.strokeStyle='#FFF';
+  maskCtx.lineJoin='round'; maskCtx.lineCap='round'; maskCtx.setLineDash([]);
+  maskCtx.strokeText(currentChar,cx,cy);
 }
 
 // ══════════════════════════════════════════════
 // ZEICHNEN
 // ══════════════════════════════════════════════
-const traceCanvas = document.getElementById('traceCanvas');
-
+const traceCanvas=document.getElementById('traceCanvas');
 function getPos(e) {
-  const rect = traceCanvas.getBoundingClientRect();
-  const sx = traceCanvas.width / rect.width;
-  const sy = traceCanvas.height / rect.height;
-  const src = e.touches ? e.touches[0] : e;
-  return { x: (src.clientX - rect.left) * sx, y: (src.clientY - rect.top) * sy };
+  const rect=traceCanvas.getBoundingClientRect();
+  const sx=traceCanvas.width/rect.width, sy=traceCanvas.height/rect.height;
+  const src=e.touches?e.touches[0]:e;
+  return {x:(src.clientX-rect.left)*sx,y:(src.clientY-rect.top)*sy};
 }
-
-traceCanvas.addEventListener('mousedown',  e => { isDrawing=true; const p=getPos(e); lastX=p.x; lastY=p.y; hasDrawn=true; });
-traceCanvas.addEventListener('mousemove',  e => { if (isDrawing) paintStroke(e); });
-traceCanvas.addEventListener('mouseup',    () => isDrawing = false);
-traceCanvas.addEventListener('mouseleave', () => isDrawing = false);
-traceCanvas.addEventListener('touchstart', e => { e.preventDefault(); isDrawing=true; const p=getPos(e); lastX=p.x; lastY=p.y; hasDrawn=true; }, {passive:false});
-traceCanvas.addEventListener('touchmove',  e => { e.preventDefault(); if (isDrawing) paintStroke(e); }, {passive:false});
-traceCanvas.addEventListener('touchend',   e => { e.preventDefault(); isDrawing=false; }, {passive:false});
+traceCanvas.addEventListener('mousedown', e=>{isDrawing=true;const p=getPos(e);lastX=p.x;lastY=p.y;hasDrawn=true;});
+traceCanvas.addEventListener('mousemove', e=>{if(isDrawing)paintStroke(e);});
+traceCanvas.addEventListener('mouseup',   ()=>isDrawing=false);
+traceCanvas.addEventListener('mouseleave',()=>isDrawing=false);
+traceCanvas.addEventListener('touchstart',e=>{e.preventDefault();isDrawing=true;const p=getPos(e);lastX=p.x;lastY=p.y;hasDrawn=true;},{passive:false});
+traceCanvas.addEventListener('touchmove', e=>{e.preventDefault();if(isDrawing)paintStroke(e);},{passive:false});
+traceCanvas.addEventListener('touchend',  e=>{e.preventDefault();isDrawing=false;},{passive:false});
 
 function paintStroke(e) {
-  if (!ctx) return;
-  const p = getPos(e);
-  const dx = p.x - lastX, dy = p.y - lastY;
-  totalDrawnPixels += Math.sqrt(dx*dx + dy*dy);
-  ctx.beginPath(); ctx.moveTo(lastX, lastY); ctx.lineTo(p.x, p.y);
-  ctx.strokeStyle = '#000000DD';
-  ctx.lineWidth   = Math.max(CW * 0.018, 5);
-  ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-  ctx.setLineDash([]);
+  if(!ctx) return;
+  const p=getPos(e);
+  const dx=p.x-lastX,dy=p.y-lastY;
+  totalDrawnPixels+=Math.sqrt(dx*dx+dy*dy);
+  ctx.beginPath(); ctx.moveTo(lastX,lastY); ctx.lineTo(p.x,p.y);
+  ctx.strokeStyle='#000000DD';
+  ctx.lineWidth=Math.max(CW*0.018,5);
+  ctx.lineCap='round'; ctx.lineJoin='round'; ctx.setLineDash([]);
   ctx.stroke();
-  lastX = p.x; lastY = p.y;
+  lastX=p.x; lastY=p.y;
 }
 
 // ══════════════════════════════════════════════
-// FERTIG-BUTTON
+// FERTIG
 // ══════════════════════════════════════════════
 function handleDone() {
-  if (!hasDrawn) return;          // nichts gezeichnet → ignorieren
-
-  const fontSize = computeFontSize();
-  if (totalDrawnPixels < fontSize * 0.15) return;  // zu wenig → ignorieren
-
-  const drawData = ctx.getImageData(0,0,CW,CH).data;
-  const maskData = maskCtx.getImageData(0,0,CW,CH).data;
-  const [bgR,bgG,bgB] = hexToRgb(THEMES[colorIdx % THEMES.length].bg);
-
-  let drawn=0, inside=0, outside=0;
-  for (let i=0; i<drawData.length; i+=4) {
-    const dR=Math.abs(drawData[i]-bgR),
-          dG=Math.abs(drawData[i+1]-bgG),
-          dB=Math.abs(drawData[i+2]-bgB);
-    if (dR+dG+dB <= 90) continue;
+  if(!hasDrawn) return;
+  const fontSize=computeFontSize();
+  if(totalDrawnPixels<fontSize*0.15) return;
+  const drawData=ctx.getImageData(0,0,CW,CH).data;
+  const maskData=maskCtx.getImageData(0,0,CW,CH).data;
+  const [bgR,bgG,bgB]=hexToRgb(THEMES[colorIdx%THEMES.length].bg);
+  let drawn=0,inside=0,outside=0;
+  for(let i=0;i<drawData.length;i+=4) {
+    const dR=Math.abs(drawData[i]-bgR),dG=Math.abs(drawData[i+1]-bgG),dB=Math.abs(drawData[i+2]-bgB);
+    if(dR+dG+dB<=90) continue;
     drawn++;
-    if (maskData[i] > 128) inside++; else outside++;
+    if(maskData[i]>128) inside++; else outside++;
   }
-
-  if (drawn < CW * CH * 0.008) return;  // zu wenig Pixel → ignorieren
-
-  const accuracy = inside / drawn;
-  if (accuracy >= 0.70 && (outside/drawn) < 0.30) {
-    onSuccess();
-  }
-  // Bei schlechter Genauigkeit: einfach nichts tun, Schüler kann nochmal zeichnen
+  if(drawn<CW*CH*0.008) return;
+  if(inside/drawn>=0.70&&outside/drawn<0.30) onSuccess();
 }
 
 function onSuccess() {
-  // Snapshot des aktuellen Canvas speichern
-  const snap = document.getElementById('traceCanvas').toDataURL('image/png');
-  snapshots.push({
-    dataUrl: snap,
-    char: currentChar,
-    theme: THEMES[colorIdx % THEMES.length]
-  });
-
+  snapshots.push({dataUrl:document.getElementById('traceCanvas').toDataURL('image/png'),
+                   theme:THEMES[colorIdx%THEMES.length]});
   successCount++;
-  const dot = document.getElementById(`dot${successCount-1}`);
-  if (dot) dot.classList.add('done');
-  document.getElementById('progressLabel').textContent = `${successCount} von ${GOAL}`;
-  hasDrawn = false; totalDrawnPixels = 0;
-
-  if (successCount >= GOAL) {
-    // Kurze Pause, dann Ergebnisseite
-    setTimeout(() => showResult(), 400);
+  const dot=document.getElementById(`dot${successCount-1}`);
+  if(dot) dot.classList.add('done');
+  document.getElementById('progressLabel').textContent=`${successCount} von ${GOAL}`;
+  hasDrawn=false; totalDrawnPixels=0;
+  if(successCount>=GOAL) {
+    setTimeout(()=>showResult(),400);
   } else {
     colorIdx++;
-    setTimeout(() => clearCanvas(), 600);
+    setTimeout(()=>clearCanvas(),600);
   }
 }
 
 function clearCanvas() {
-  if (!ctx) return;
-  drawLetterFrame();
-  hasDrawn = false; totalDrawnPixels = 0;
+  if(!ctx) return;
+  drawLetterFrame(); hasDrawn=false; totalDrawnPixels=0;
 }
 
 function hexToRgb(hex) {
-  const r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return r ? [parseInt(r[1],16),parseInt(r[2],16),parseInt(r[3],16)] : [255,255,255];
+  const r=/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return r?[parseInt(r[1],16),parseInt(r[2],16),parseInt(r[3],16)]:[255,255,255];
 }
 
 // ══════════════════════════════════════════════
 // ERGEBNISSEITE
 // ══════════════════════════════════════════════
 function showResult() {
-  // Konfetti + Applaus
-  launchConfetti();
-  playApplause();
-
-  // Untertitel
-  document.getElementById('resultSubtitle').textContent =
+  launchConfetti(); playApplause();
+  document.getElementById('resultSubtitle').textContent=
     `${currentChar} – ${currentWord} · ${GOAL}× nachgespurt`;
-
-  // Galerie aufbauen
-  const gallery = document.getElementById('resultGallery');
-  gallery.innerHTML = '';
-
-  snapshots.forEach((snap, i) => {
-    const tile = document.createElement('div');
-    tile.className = 'result-tile';
-    tile.style.borderColor = snap.theme.stroke + '60';
-
-    const img = document.createElement('img');
-    img.src = snap.dataUrl;
-    img.style.cssText = 'width:100%;height:calc(100% - 22px);object-fit:contain;display:block;';
-    img.alt = `Versuch ${i+1}`;
-
-    const lbl = document.createElement('div');
-    lbl.className = 'tile-label';
-    lbl.textContent = `${i+1}`;
-
-    tile.appendChild(img);
-    tile.appendChild(lbl);
+  const gallery=document.getElementById('resultGallery');
+  gallery.innerHTML='';
+  snapshots.forEach((snap,i)=>{
+    const tile=document.createElement('div');
+    tile.className='result-tile';
+    tile.style.borderColor=snap.theme.stroke+'60';
+    const img=document.createElement('img');
+    img.src=snap.dataUrl; img.alt=`Versuch ${i+1}`;
+    const lbl=document.createElement('div');
+    lbl.className='tile-label'; lbl.textContent=`${i+1}`;
+    tile.appendChild(img); tile.appendChild(lbl);
     gallery.appendChild(tile);
   });
-
   showPage('result');
 }
 
@@ -864,72 +974,51 @@ function showResult() {
 // TTS
 // ══════════════════════════════════════════════
 function speakLetter() {
-  const phonetic = PHONETICS_MAP[currentChar] || currentChar;
-  const u = new SpeechSynthesisUtterance(phonetic);
+  const phonetic=PHONETICS_MAP[currentChar]||currentChar;
+  const u=new SpeechSynthesisUtterance(phonetic);
   u.lang='de-DE'; u.rate=0.6; u.pitch=1.0;
-  window.speechSynthesis.cancel();
-  window.speechSynthesis.speak(u);
+  window.speechSynthesis.cancel(); window.speechSynthesis.speak(u);
 }
 
 // ══════════════════════════════════════════════
 // APPLAUS
 // ══════════════════════════════════════════════
 function playApplause() {
-  try {
-    const a = new Audio(APPLAUSE_SRC);
-    a.volume = 0.9;
-    a.play().catch(() => {});
-  } catch(e) {}
+  try {const a=new Audio(APPLAUSE_SRC);a.volume=0.9;a.play().catch(()=>{});} catch(e) {}
 }
 
 // ══════════════════════════════════════════════
 // KONFETTI
 // ══════════════════════════════════════════════
 function launchConfetti() {
-  const cv = document.getElementById('confettiCanvas');
-  cv.style.display = 'block';
-  cv.width  = window.innerWidth;
-  cv.height = window.innerHeight;
-  const cc  = cv.getContext('2d');
-  const cols = ['#FFB3C1','#B5EAD7','#C7CEEA','#FFDAC1','#E2F0CB','#F2C4DE',
-                '#FFE66D','#A8EDEA','#FFC0CB','#FFD700','#98FB98','#87CEEB'];
-  const pieces = Array.from({length:220}, () => {
-    const s = 6 + Math.random()*14;
-    return {
-      x: Math.random()*cv.width, y: -60 - Math.random()*cv.height*0.6,
-      w: s, h: s*(0.4+Math.random()*0.8),
-      color: cols[Math.floor(Math.random()*cols.length)],
-      rot: Math.random()*360, vx: (Math.random()-0.5)*6,
-      vy: 2+Math.random()*5,  vr: (Math.random()-0.5)*12,
-      shape: Math.random()<0.33?'circle':Math.random()<0.5?'rect':'star'
-    };
+  const cv=document.getElementById('confettiCanvas');
+  cv.style.display='block'; cv.width=window.innerWidth; cv.height=window.innerHeight;
+  const cc=cv.getContext('2d');
+  const cols=['#FFB3C1','#B5EAD7','#C7CEEA','#FFDAC1','#E2F0CB','#F2C4DE',
+              '#FFE66D','#A8EDEA','#FFC0CB','#FFD700','#98FB98','#87CEEB'];
+  const pieces=Array.from({length:220},()=>{
+    const s=6+Math.random()*14;
+    return{x:Math.random()*cv.width,y:-60-Math.random()*cv.height*0.6,
+      w:s,h:s*(0.4+Math.random()*0.8),color:cols[Math.floor(Math.random()*cols.length)],
+      rot:Math.random()*360,vx:(Math.random()-0.5)*6,vy:2+Math.random()*5,
+      vr:(Math.random()-0.5)*12,shape:Math.random()<0.33?'circle':Math.random()<0.5?'rect':'star'};
   });
-  let f = 0;
+  let f=0;
   function frame() {
-    cc.clearRect(0, 0, cv.width, cv.height);
-    pieces.forEach(p => {
-      p.x+=p.vx; p.y+=p.vy; p.vy+=0.04; p.rot+=p.vr;
-      if (p.y > cv.height+20) { p.y=-20; p.x=Math.random()*cv.width; }
-      cc.save(); cc.translate(p.x, p.y); cc.rotate(p.rot*Math.PI/180);
-      cc.fillStyle = p.color;
-      if (p.shape==='circle') {
-        cc.beginPath(); cc.arc(0,0,p.w/2,0,Math.PI*2); cc.fill();
-      } else if (p.shape==='rect') {
-        cc.fillRect(-p.w/2,-p.h/2,p.w,p.h);
-      } else {
-        cc.beginPath();
-        for (let s=0;s<5;s++) {
-          const a=s*Math.PI*2/5-Math.PI/2, b=a+Math.PI/5, r1=p.w/2, r2=p.w/5;
-          if (s===0) cc.moveTo(Math.cos(a)*r1,Math.sin(a)*r1);
-          else cc.lineTo(Math.cos(a)*r1,Math.sin(a)*r1);
-          cc.lineTo(Math.cos(b)*r2,Math.sin(b)*r2);
-        }
-        cc.closePath(); cc.fill();
-      }
+    cc.clearRect(0,0,cv.width,cv.height);
+    pieces.forEach(p=>{
+      p.x+=p.vx;p.y+=p.vy;p.vy+=0.04;p.rot+=p.vr;
+      if(p.y>cv.height+20){p.y=-20;p.x=Math.random()*cv.width;}
+      cc.save();cc.translate(p.x,p.y);cc.rotate(p.rot*Math.PI/180);cc.fillStyle=p.color;
+      if(p.shape==='circle'){cc.beginPath();cc.arc(0,0,p.w/2,0,Math.PI*2);cc.fill();}
+      else if(p.shape==='rect'){cc.fillRect(-p.w/2,-p.h/2,p.w,p.h);}
+      else{cc.beginPath();for(let s=0;s<5;s++){const a=s*Math.PI*2/5-Math.PI/2,b=a+Math.PI/5,r1=p.w/2,r2=p.w/5;
+        if(s===0)cc.moveTo(Math.cos(a)*r1,Math.sin(a)*r1);else cc.lineTo(Math.cos(a)*r1,Math.sin(a)*r1);
+        cc.lineTo(Math.cos(b)*r2,Math.sin(b)*r2);}cc.closePath();cc.fill();}
       cc.restore();
     });
-    if (++f < 300) requestAnimationFrame(frame);
-    else { cc.clearRect(0,0,cv.width,cv.height); cv.style.display='none'; }
+    if(++f<300)requestAnimationFrame(frame);
+    else{cc.clearRect(0,0,cv.width,cv.height);cv.style.display='none';}
   }
   requestAnimationFrame(frame);
 }
@@ -938,18 +1027,18 @@ function launchConfetti() {
 // RESIZE
 // ══════════════════════════════════════════════
 let resizeTimer;
-window.addEventListener('resize', () => {
+window.addEventListener('resize',()=>{
   clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(() => {
-    if (document.getElementById('page-trace').classList.contains('active')) initCanvas();
-  }, 150);
+  resizeTimer=setTimeout(()=>{
+    if(document.getElementById('page-trace').classList.contains('active'))initCanvas();
+  },150);
 });
 
 // ══════════════════════════════════════════════
 // SERVICE WORKER
 // ══════════════════════════════════════════════
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./service-worker.js', {scope:'./'}).catch(()=>{});
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('./service-worker.js',{scope:'./'}).catch(()=>{});
 }
 
 showPage('start');
