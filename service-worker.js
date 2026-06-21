@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'nachspuren-v5';
+const CACHE_VERSION = 'nachspuren-v6';
 
 const CORE_FILES = [
   './',
